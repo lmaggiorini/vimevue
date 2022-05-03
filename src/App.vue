@@ -1,26 +1,59 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <Player id="vid" playsinline
+            controls
+            ref="player"
+            @vmCurrentTimeChange="onTimeUpdate"
+            @vmDurationChange="getDuration"
+    >
+      <!--          <Video poster="https://media.vimejs.com/poster.png">
+                  &lt;!&ndash;
+                        https://media.vimejs.com/720p.mp4
+                        /media/sample.mp4
+                  &ndash;&gt;
+                  <source
+                      data-src="https://media.vimejs.com/720p.mp4"
+                      type="video/mp4"
+                  />
+                </Video>-->
+      <Vimeo videoId="705401280"/>
+
+    </Player>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import {Player, Vimeo} from "@vime/vue-next";
+
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
+  components: {Player, Vimeo},
+  computed: {
+    player() {
+      return this.$refs.player;
+    },
+  },
+  methods: {
+    onTimeUpdate(ev) {
+      console.log("onTimeUpdate", ev)
+      console.log(this.player)
+    },
+    getDuration(ev) {
+      console.log(ev)
+    }
+  },
+  data() {
+    return {}
+  },
+
+
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import '@vime/core/themes/default.css';
+
+
 </style>
